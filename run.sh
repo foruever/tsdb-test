@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# 计算当前目录
+BENCHMARK_HOME="$(cd "`dirname "$0"`"/.; pwd)"
+echo $BENCHMARK_HOME
+#编译
+mvn clean package -Dmaven.test.skip=true
+# 参数路径
+PARAM_PATH=${BENCHMARK_HOME}"/"param.properties
+# 启动程序
+CLASSPATH=""
+for f in ${BENCHMARK_HOME}/lib/*.jar; do
+  CLASSPATH=${CLASSPATH}":"$f
+done
+if [ -n "$JAVA_HOME" ]; then
+    for java in "$JAVA_HOME"/bin/amd64/java "$JAVA_HOME"/bin/java; do
+        if [ -x "$java" ]; then
+            JAVA="$java"
+            break
+        fi
+    done
+else
+    JAVA=java
+fi
+MAIN_CLASS="TSDBTest"
+
+DATA_PATH="${BENCHMARK_HOME}"
+# 1:influxdb ;2:timescaledb ;3:iotdb
+DB_CODE=1
+# 0: generate,1:i,w,r ,2 w,r
+TEST_METHOD=2
+
+
+exec "$JAVA" -cp "$CLASSPATH" "$MAIN_CLASS" "$DB_CODE" "${TEST_METHOD}" "${DATA_PATH}"
+exit $?
