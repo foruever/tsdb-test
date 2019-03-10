@@ -134,14 +134,14 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
                 sc.append(",");
                 sc.append("d=");
                 sc.append(deviceId);
-//                sc.append(",");
-//                sc.append("s=");
-//                sc.append(sensorName);
+                sc.append(",");
+                sc.append("s=");
+                sc.append(sensorName);
                 sc.append(" ");
 
-                sc.append(sensorName);
-                sc.append("=");
-//                sc.append("value=");
+//                sc.append(sensorName);
+//                sc.append("=");
+                sc.append("value=");
                 sc.append(value);
                 sc.append(" ");
                 sc.append(timestamp);
