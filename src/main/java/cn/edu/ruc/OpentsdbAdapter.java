@@ -95,8 +95,7 @@ public class OpentsdbAdapter implements BaseAdapter{
 		            .url(writeURL)
 		            .post(RequestBody.create(MEDIA_TYPE_TEXT, json.toString()))
 		            .build();
-			System.out.println(json);
-	        return exeOkHttpRequest(request);	    
+	        return exeOkHttpRequest(request);
 	       }
 	    
 	 //执行query
