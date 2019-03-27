@@ -24,8 +24,8 @@ fi
 MAIN_CLASS="TSDBTest"
 
 DATA_PATH="${BENCHMARK_HOME}"
-# 1:influxdb ;2:timescaledb ;3:iotdb
-DB_CODE=1
+# 1:influxdb ;2:timescaledb ;3:iotdb ;4 opentsdb
+DB_CODE=4
 # 0: generate,1:i,w,r ,2 w,r
 TEST_METHOD=2
 

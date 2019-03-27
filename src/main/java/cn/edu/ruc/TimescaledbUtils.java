@@ -41,6 +41,7 @@ public class TimescaledbUtils {
                 }
             }
             String createTableSql = String.format(createTableFormat, valueTagBuffer.toString());
+            System.out.println(createTableSql);
             statement.execute(createTableSql);
             String addIndexSql1="CREATE INDEX ON sensor (f)";
             String addIndexSql2="CREATE INDEX ON sensor (d)";

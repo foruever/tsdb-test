@@ -96,7 +96,10 @@ public class IotdbAdapter implements BaseAdapter {
                 statement.addBatch(sql);
             }
             long startTime=System.nanoTime();
-            statement.executeBatch();
+            int[] ints = statement.executeBatch();
+            for(int i:ints){
+                System.out.println(i);
+            }
             long endTime=System.nanoTime();
             costTime=endTime-startTime;
             statement.clearBatch();
@@ -113,6 +116,7 @@ public class IotdbAdapter implements BaseAdapter {
     public long query1(long start, long end) {
         String formatSql="select %s from  %s.%s.%s  where time>=%s and time<=%s";
         String eSql=String.format(formatSql,"s1",rootSeries,"f1","d1",start,end);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 
@@ -120,6 +124,7 @@ public class IotdbAdapter implements BaseAdapter {
         //select s1 from root.perform.f1.* where s1>0;
         String formatSql="select %s from  %s.%s.*  where time>=%s and time<=%s and %s>%s";
         String eSql=String.format(formatSql,"s1",rootSeries,"f1",start,end,"s1",value);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 
@@ -128,6 +133,7 @@ public class IotdbAdapter implements BaseAdapter {
         String formatSql="select mean(*) from  %s.%s.* where time>=%s and time<=%s group by " +
                 "(1h,[%s,%s])";
         String eSql=String.format(formatSql,rootSeries,"f1",start,end,start,end);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 
@@ -135,6 +141,7 @@ public class IotdbAdapter implements BaseAdapter {
         //select s1,s2 from root.perform.f1.* ;
         String formatSql="select %s,%s,%s,%s,%s from %s.%s.* where time>=%s and time<=%s";
         String eSql=String.format(formatSql,"s1","s2","s3","s4","s5",rootSeries,"f1",start,end);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 
@@ -142,6 +149,7 @@ public class IotdbAdapter implements BaseAdapter {
         //select * from root.perform.f1.* ;
         String formatSql="select * from %s.%s.* where time>=%s and time<=%s";
         String eSql=String.format(formatSql,rootSeries,"f1",start,end);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
     public long execQuery(String sql) {

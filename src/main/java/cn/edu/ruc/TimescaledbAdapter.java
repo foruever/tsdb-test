@@ -122,6 +122,7 @@ public class TimescaledbAdapter implements BaseAdapter {
         String sqlFormat="select time,f,d,%s from sensor where f='%s' and d='%s' and time>=to_timestamp(%s) " +
                 "and time<=to_timestamp(%s)";
         String eSql=String.format(sqlFormat,"s1","f1","d1",start/1000,end/1000);
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 

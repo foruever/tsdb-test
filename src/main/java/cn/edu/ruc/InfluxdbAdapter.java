@@ -20,9 +20,9 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private org.influxdb.InfluxDB INFLUXDB = null;
     private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient().newBuilder()
-            .readTimeout(500000, TimeUnit.MILLISECONDS)
-            .connectTimeout(500000, TimeUnit.MILLISECONDS)
-            .writeTimeout(500000, TimeUnit.MILLISECONDS)
+            .readTimeout(50000, TimeUnit.MILLISECONDS)
+            .connectTimeout(50000, TimeUnit.MILLISECONDS)
+            .writeTimeout(50000, TimeUnit.MILLISECONDS)
             .build();
 
     public static OkHttpClient getOkHttpClient() {
@@ -51,7 +51,7 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
         long costTime = 0L;
         try {
             long startTime1 = System.nanoTime();
-            QueryResult results = INFLUXDB.query(new Query(query, dbName), TimeUnit.MILLISECONDS);
+            QueryResult results = INFLUXDB.query(new Query(query, dbName));
             long endTime1 = System.nanoTime();
             costTime = endTime1 - startTime1;
             if (results.hasError()) {
@@ -85,6 +85,7 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
                 "f,d,s,time(1h)";
         String eSql = String.format(sqlFormat, "f1", TimeUnit.MILLISECONDS.toNanos(start),
                 TimeUnit.MILLISECONDS.toNanos(end));
+        System.out.println(eSql);
         return execQuery(eSql);
     }
 
@@ -107,7 +108,10 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
         String baseUrl = String.format("http://%s:%s", ip, port);
         this.writeURL = baseUrl + "/write?precision=ms&db=" + dbName;
         this.queryURL = baseUrl + "/query?db=" + dbName;
-        INFLUXDB = InfluxDBFactory.connect(baseUrl);
+        INFLUXDB = InfluxDBFactory.connect(baseUrl,new OkHttpClient().newBuilder()
+                .readTimeout(50000, TimeUnit.MILLISECONDS)
+                .connectTimeout(50000, TimeUnit.MILLISECONDS)
+                .writeTimeout(50000, TimeUnit.MILLISECONDS));
         INFLUXDB.setDatabase(dbName);
         INFLUXDB.createDatabase(dbName);
     }

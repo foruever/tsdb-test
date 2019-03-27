@@ -50,6 +50,28 @@ public class TSDBTest {
                 testIotdb(false);
             }
         }
+        if("4".equals(args[0])) {
+            if("0".equals(args[1])){
+                TSBM.generateData(dataPath);
+            }
+            if("1".equals(args[1])){
+                testOpentsdb(true);
+            }
+            if("2".equals(args[1])){
+                testOpentsdb(false);
+            }
+        }
+        if("5".equals(args[0])) {
+            if("0".equals(args[1])){
+                TSBM.generateData(dataPath);
+            }
+            if("1".equals(args[1])){
+                testDruid(true);
+            }
+            if("2".equals(args[1])){
+                testDruid(false);
+            }
+        }
 
     }
     public static void testIotdb(boolean loadParam){
@@ -71,12 +93,28 @@ public class TSDBTest {
         TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
     }
     public static void testTimescaledb(boolean loadParam){
-//        String dataPath = "/Users/fasape/project/tsdb-test/";
+        String dataPath = "/Users/fasape/project/tsdb-test/";
         String className = "cn.edu.ruc.TimescaledbAdapter";
         String ip = "10.77.110.226";
         String port = "5432";
         String userName = "postgres";
         String passwd = "postgres";
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+    }
+    public static void testOpentsdb(boolean loadParam) {
+        String className = "cn.edu.ruc.OpentsdbAdapter";
+        String ip = "10.77.110.226";
+        String port = "4242";
+        String userName = "root"; //not required
+        String passwd = "root"; //not required
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+    }
+    public static void testDruid(boolean loadParam) {
+        String className = "cn.edu.ruc.DruidAdapter";
+        String ip = "10.77.110.226";
+        String port = "";
+        String userName = "root"; //not required
+        String passwd = "root"; //not required
         TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
     }
 }
