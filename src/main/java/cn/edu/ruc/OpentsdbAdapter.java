@@ -40,7 +40,7 @@ public class OpentsdbAdapter implements BaseAdapter{
 	            long startTime1 = System.nanoTime();
 	            response = client.newCall(request).execute();
 	            int code = response.code();
-				System.out.println(response.body().string());
+//				System.out.println(response.body().string());
 	            response.close();
 	            long endTime1 = System.nanoTime();
 	            costTime = endTime1 - startTime1;
