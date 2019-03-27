@@ -40,7 +40,7 @@ public class OpentsdbAdapter implements BaseAdapter{
 	            long startTime1 = System.nanoTime();
 	            response = client.newCall(request).execute();
 	            int code = response.code();
-//				System.out.println(response.body().string());
+				System.out.println(response.body().string());
 	            response.close();
 	            long endTime1 = System.nanoTime();
 	            costTime = endTime1 - startTime1;
@@ -69,12 +69,13 @@ public class OpentsdbAdapter implements BaseAdapter{
 	            if (sensors.length < 3) {//过滤空行
 	                continue;
 	            }
-	            Map<String,Object> pointMap=new HashMap<>();
+//	            Map<String,Object> pointMap=new HashMap<>();
 	            String timestamp = sensors[0];
 	            String farmId = sensors[1];
 	            String deviceId = sensors[2];
 	            int length = sensors.length;
 	            for (int index = 3; index < length; index++) {
+					Map<String,Object> pointMap=new HashMap<>();
 	                String value = sensors[index];
 	                String sensorName = "s" + (index - 2);
 	                pointMap.put("metric", METRIC);
@@ -94,7 +95,7 @@ public class OpentsdbAdapter implements BaseAdapter{
 		            .url(writeURL)
 		            .post(RequestBody.create(MEDIA_TYPE_TEXT, json.toString()))
 		            .build();
-
+			System.out.println(json);
 	        return exeOkHttpRequest(request);	    
 	       }
 	    
