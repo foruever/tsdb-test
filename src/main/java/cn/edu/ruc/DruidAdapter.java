@@ -34,6 +34,7 @@ public class DruidAdapter implements BaseAdapter{
 	            long startTime1 = System.nanoTime();
 	            response = client.newCall(request).execute();
 	            int code = response.code();
+//                System.out.println(response.body().string());
 	            response.close();
 	            long endTime1 = System.nanoTime();
 	            costTime = endTime1 - startTime1;
@@ -58,15 +59,18 @@ public class DruidAdapter implements BaseAdapter{
 	            if (sensors.length < 3) {//过滤空行
 	                continue;
 	            }
-	            Map<String,Object> pointMap=new HashMap<>();
+	           
 	            String timestamp = sensors[0];
 	            String farmId = sensors[1];
 	            String deviceId = sensors[2];
 	            int length = sensors.length;
 	            for (int index = 3; index < length; index++) {
-	                String value = sensors[index];
+	            	Map<String,Object> pointMap=new HashMap<>();
+	            	String value = sensors[index];
 	                String sensorName = "s" + (index - 2);
-	                pointMap.put("timestamp", timestamp);
+//	                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+//                    String tm = format.format(new Date(timestamp));
+	                pointMap.put("time", timestamp);
 	                pointMap.put("f", farmId);
 	                pointMap.put("d", deviceId);
 	                pointMap.put("s", sensorName);
@@ -371,7 +375,7 @@ public class DruidAdapter implements BaseAdapter{
 	  
 	  public static void main(String []args) {
 		  DruidAdapter a=new DruidAdapter();
-		  a.query5(3, 5);
+		  a.query1(3, 5);
 	  }
 	  
 	  

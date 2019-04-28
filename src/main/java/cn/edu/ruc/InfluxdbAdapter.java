@@ -81,9 +81,9 @@ public class InfluxdbAdapter implements BaseAdapter {// ctrl+i 快速实现接�
     }
 
     public long query3(long start, long end) {
-        String sqlFormat = "select mean(value) from sensor where f='%s' and time>=%s and time<=%s group by " +
+        String sqlFormat = "select mean(value) from sensor where f='%s' and s='%s' and time>=%s and time<=%s group by " +
                 "f,d,s,time(1h)";
-        String eSql = String.format(sqlFormat, "f1", TimeUnit.MILLISECONDS.toNanos(start),
+        String eSql = String.format(sqlFormat, "f1","s1", TimeUnit.MILLISECONDS.toNanos(start),
                 TimeUnit.MILLISECONDS.toNanos(end));
         System.out.println(eSql);
         return execQuery(eSql);

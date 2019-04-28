@@ -130,7 +130,7 @@ public class IotdbAdapter implements BaseAdapter {
 
     public long query3(long start, long end) {
         //select mean(*) from root.perform.f1.* group by (1h,[0,100000000]);
-        String formatSql="select mean(*) from  %s.%s.* where time>=%s and time<=%s group by " +
+        String formatSql="select mean(s1) from  %s.%s.* where time>=%s and time<=%s group by " +
                 "(1h,[%s,%s])";
         String eSql=String.format(formatSql,rootSeries,"f1",start,end,start,end);
         System.out.println(eSql);
