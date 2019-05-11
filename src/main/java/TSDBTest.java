@@ -93,7 +93,7 @@ public class TSDBTest {
         TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
     }
     public static void testTimescaledb(boolean loadParam){
-        String dataPath = "/Users/fasape/project/tsdb-test/";
+//        String dataPath = "/Users/fasape/project/tsdb-test/";
         String className = "cn.edu.ruc.TimescaledbAdapter";
         String ip = "10.77.110.226";
         String port = "5432";

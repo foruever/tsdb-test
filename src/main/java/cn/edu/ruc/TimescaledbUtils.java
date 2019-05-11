@@ -20,7 +20,7 @@ public class TimescaledbUtils {
         String passwd="postgres";
         String url="jdbc:postgresql://"+ip+":5432/ruc_test";
 
-        int sNum=50;
+        int sNum=150;
         Connection connection = null;
         Statement statement = null;
         try {
