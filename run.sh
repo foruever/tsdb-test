@@ -24,10 +24,13 @@ fi
 MAIN_CLASS="TSDBTest"
 
 DATA_PATH="${BENCHMARK_HOME}"
-# 1:influxdb ;2:timescaledb ;3:iotdb ;4 opentsdb
-DB_CODE=4
+
+rm -rf "${DATA_PATH}"/farm
+rm -rf "${DATA_PATH}"/device
+# 1:influxdb ;2:timescaledb ;3:iotdb ;4 opentsdb;5 druid
+DB_CODE=1
 # 0: generate,1:i,w,r ,2 w,r
-TEST_METHOD=2
+TEST_METHOD=0
 
 
 exec "$JAVA" -cp "$CLASSPATH" "$MAIN_CLASS" "$DB_CODE" "${TEST_METHOD}" "${DATA_PATH}"
